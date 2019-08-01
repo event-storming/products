@@ -6,10 +6,6 @@ public class ProductRequired {
     private String stateMessage;
     private String productName ;
 
-    public ProductRequired(){
-        this.setType(this.getClass().getSimpleName());
-    }
-
     public String getType() {
         return type;
     }
