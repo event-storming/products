@@ -9,6 +9,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -48,6 +49,19 @@ public class ProductService {
 
                 // product 의 수량을 10개씩 늘린다
                 product.setStock(product.getStock() + 10);
+
+                productRepository.save(product);
+
+            }
+            /**
+             * 주문이 발생시, 수량을 줄인다.
+             */
+            else if( productRequired.getType().equals(OrderPlaced.class.getSimpleName())){
+                OrderPlaced orderPlaced = objectMapper.readValue(message, OrderPlaced.class);
+
+                Optional<Product> productOptional = productRepository.findById(orderPlaced.getProductId());
+                Product product = productOptional.get();
+                product.setStock(product.getStock() - orderPlaced.getQuantity());
 
                 productRepository.save(product);
 
