@@ -32,7 +32,7 @@ public class ProductService {
             /**
              * 상품 추가 요청이 왔을때 해당 상품을 찾아서 재고를 늘린다.
              */
-            if( productRequired.getType().equals(ProductRequired.class.getSimpleName())){
+            if( productRequired.getEventType().equals(ProductRequired.class.getSimpleName())){
 
                 List<Product> productList = productRepository.findByName(productRequired.getProductName());
                 Product product = null;
@@ -56,7 +56,7 @@ public class ProductService {
             /**
              * 주문이 발생시, 수량을 줄인다.
              */
-            else if( productRequired.getType().equals(OrderPlaced.class.getSimpleName())){
+            else if( productRequired.getEventType().equals(OrderPlaced.class.getSimpleName())){
                 OrderPlaced orderPlaced = objectMapper.readValue(message, OrderPlaced.class);
 
                 Optional<Product> productOptional = productRepository.findById(orderPlaced.getProductId());

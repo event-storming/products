@@ -1,8 +1,7 @@
 package com.example.template;
 
-public class ProductChanged {
+public class ProductChanged  extends AbstractEvent{
 
-    private String type ;
     private String stateMessage = "상품 변경이 발생함";
 
     private Long productId;
@@ -12,16 +11,7 @@ public class ProductChanged {
     private int productStock;
 
     public ProductChanged(){
-        this.setType(this.getClass().getSimpleName());
-    }
-
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+        this.setEventType(this.getClass().getSimpleName());
     }
 
     public String getStateMessage() {

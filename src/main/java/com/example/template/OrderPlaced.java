@@ -2,9 +2,7 @@ package com.example.template;
 
 import java.io.Serializable;
 
-public class OrderPlaced implements Serializable {
-
-    private String type;
+public class OrderPlaced extends AbstractEvent {
 
     private Long productId;
     private Long orderId;
@@ -13,14 +11,6 @@ public class OrderPlaced implements Serializable {
     private int price;
     private String customerName;
     private String customerAddr;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
 
     public Long getProductId() {
