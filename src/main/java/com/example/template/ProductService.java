@@ -18,7 +18,7 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    @KafkaListener(topics = "eventTopic")
+    @KafkaListener(topics = "${eventTopic}")
     public void onListener(@Payload String message, ConsumerRecord<?, ?> consumerRecord) {
         System.out.println("##### listener : " + message);
 
