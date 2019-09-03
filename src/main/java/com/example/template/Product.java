@@ -19,6 +19,7 @@ public class Product {
     String name;
     int price;
     int stock;
+    String imageUrl;
 
     @PostPersist @PostUpdate
     private void publishStart() {
@@ -32,6 +33,7 @@ public class Product {
         productChanged.setProductName(this.name);
         productChanged.setProductPrice(this.price);
         productChanged.setProductStock(this.stock);
+        productChanged.setImageUrl(this.imageUrl);
         try {
             json = objectMapper.writeValueAsString(productChanged);
         } catch (JsonProcessingException e) {
@@ -44,6 +46,14 @@ public class Product {
             ProducerRecord producerRecord = new ProducerRecord<>(topicName, json);
             kafkaTemplate.send(producerRecord);
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -68,5 +78,13 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
