@@ -21,10 +21,11 @@ public class Application {
         int i = 1;
         for(String p : products){
             Product product = new Product();
+
+            product.setImageUrl("https://github.githubassets.com/images/modules/profile/profile-joined-github.png");
             product.setName(p);
             product.setPrice(i*10000);
             product.setStock(i*10);
-            product.setImageUrl("https://github.githubassets.com/images/modules/profile/profile-joined-github.png");
             i++;
             productRepository.save(product);
         }
