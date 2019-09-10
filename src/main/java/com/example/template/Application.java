@@ -26,11 +26,8 @@ public class Application {
             product.setName(p);
             product.setPrice(i*10000);
             product.setStock(i*10);
-<<<<<<< HEAD
-=======
             product.setImageUrl("/goods/img/"+p+".jpg");
 //            product.setImageUrl("https://github.githubassets.com/images/modules/profile/profile-joined-github.png");
->>>>>>> 3cacf53fd2411f3f08694619bc7673b3d4e16af7
             i++;
             productRepository.save(product);
         }
