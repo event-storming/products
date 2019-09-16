@@ -20,7 +20,7 @@ public class ProductService {
     ProductRepository productRepository;
 
     @KafkaListener(topics = "${eventTopic}")
-    public void onListener(@Payload String message, ConsumerRecord<?, ?> consumerRecord) {
+    public void onOrderPlaced(@Payload String message, ConsumerRecord<?, ?> consumerRecord) {
         System.out.println("##### listener : " + message);
 
         ObjectMapper objectMapper = new ObjectMapper();
