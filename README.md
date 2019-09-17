@@ -25,3 +25,6 @@ public class RestTemplateConfig {
     
 }
 ```
+
+
+상품 추가
