@@ -2,34 +2,63 @@ server:
   port: 8080
 
 
-eventTopic: eventTopic
-
 ---
 spring:
   profiles: default
-  kafka:
-#    bootstrap-servers: http://35.200.47.242:31090
-    bootstrap-servers: localhost:9092
-    consumer:
-      enable-auto-commit: true
   jpa:
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: products
+          destination: eventTopic
+          contentType: application/json
+        event-out:
+          destination: eventTopic
+          contentType: application/json
 
 logging:
   level:
-    org:
-      hibernate:
-        type: trace  
+    org.hibernate.type: trace
+    org.springframework.cloud: debug
 server:
   port: 8085
 ---
 spring:
   profiles: docker
-  kafka:
-    bootstrap-servers: my-kafka.kafka.svc.cluster.local:9092
-    consumer:
-      enable-auto-commit: true
-eventTopic: eventTopicDocker
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: my-kafka.kafka.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: products
+          destination: eventTopicDocker
+          contentType: application/json
+        event-out:
+          destination: eventTopicDocker
+          contentType: application/json

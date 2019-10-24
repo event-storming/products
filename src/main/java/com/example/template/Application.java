@@ -1,14 +1,14 @@
 package com.example.template;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.template.config.kafka.KafkaProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Lazy;
-
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
+@EnableBinding(KafkaProcessor.class)
 public class Application {
 
     protected static ApplicationContext applicationContext;
@@ -27,7 +27,6 @@ public class Application {
             product.setPrice(i*10000);
             product.setStock(i*10);
             product.setImageUrl("/goods/img/"+p+".jpg");
-//            product.setImageUrl("https://github.githubassets.com/images/modules/profile/profile-joined-github.png");
             i++;
             productRepository.save(product);
         }

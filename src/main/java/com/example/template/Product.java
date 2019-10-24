@@ -1,11 +1,17 @@
 package com.example.template;
 
+import com.example.template.config.kafka.KafkaProcessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.core.env.Environment;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.util.MimeTypeUtils;
 
 import javax.persistence.*;
 
@@ -23,8 +29,6 @@ public class Product {
 
     @PostPersist @PostUpdate
     private void publishStart() {
-        KafkaTemplate kafkaTemplate = Application.applicationContext.getBean(KafkaTemplate.class);
-
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
 
@@ -41,10 +45,25 @@ public class Product {
         }
 
         if( json != null ){
-            Environment env = Application.applicationContext.getEnvironment();
-            String topicName = env.getProperty("eventTopic");
-            ProducerRecord producerRecord = new ProducerRecord<>(topicName, json);
-            kafkaTemplate.send(producerRecord);
+            /**
+             * spring kafka 방식
+             */
+//            Environment env = Application.applicationContext.getEnvironment();
+//            String topicName = env.getProperty("eventTopic");
+//            ProducerRecord producerRecord = new ProducerRecord<>(topicName, json);
+//            kafkaTemplate.send(producerRecord);
+
+            /**
+             * spring streams 방식
+             */
+            KafkaProcessor processor = Application.applicationContext.getBean(KafkaProcessor.class);
+            MessageChannel outputChannel = processor.outboundTopic();
+
+            outputChannel.send(MessageBuilder
+                    .withPayload(json)
+                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                    .build());
+
         }
     }
 
