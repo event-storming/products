@@ -46,7 +46,8 @@ public abstract class MessagingBase {
 
         ProductChanged productChanged = new ProductChanged();
         productChanged.setProductId(1L);
-        productChanged.setProductName("TEST");
+        productChanged.setProductTitle("TEST");
+//        productChanged.setProductName("TEST");
         productChanged.setProductPrice(10000);
         productChanged.setProductStock(10);
         productChanged.setImageUrl("/test.jpg");
