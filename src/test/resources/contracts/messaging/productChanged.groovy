@@ -32,6 +32,7 @@ then:
         sentTo 'eventTopic'
         // the body of the output message
         body(
+                eventType: "ProductChanged",
                 productId: 1,
                 productName: "TV",
                 productPrice: 10000,
@@ -39,6 +40,7 @@ then:
                 imageUrl: "testUrl"
         )
         bodyMatchers {
+            jsonPath('$.eventType', byRegex("ProductChanged"))
             jsonPath('$.productId', byRegex(nonEmpty()).asLong())
             jsonPath('$.productName', byRegex(nonEmpty()).asString())
             jsonPath('$.productPrice', byRegex(nonEmpty()).asLong())
