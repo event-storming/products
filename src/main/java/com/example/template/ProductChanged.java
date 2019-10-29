@@ -9,8 +9,8 @@ public class ProductChanged  extends AbstractEvent{
 
     private Long productId;
 
-    private String productTitle;
-//    private String productName;
+//    private String productTitle;
+    private String productName;
     private int productPrice;
     private int productStock;
     private String imageUrl;
@@ -37,21 +37,21 @@ public class ProductChanged  extends AbstractEvent{
         this.productId = productId;
     }
 
-    public String getProductTitle() {
-        return productTitle;
-    }
-
-    public void setProductTitle(String productTitle) {
-        this.productTitle = productTitle;
-    }
-
-    //    public String getProductName() {
-//        return productName;
+//    public String getProductTitle() {
+//        return productTitle;
 //    }
 //
-//    public void setProductName(String productName) {
-//        this.productName = productName;
+//    public void setProductTitle(String productTitle) {
+//        this.productTitle = productTitle;
 //    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public int getProductPrice() {
         return productPrice;

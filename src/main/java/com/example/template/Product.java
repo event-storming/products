@@ -34,8 +34,8 @@ public class Product {
 
         ProductChanged productChanged = new ProductChanged();
         productChanged.setProductId(this.id);
-        productChanged.setProductTitle(this.name);
-//        productChanged.setProductName(this.name);
+//        productChanged.setProductTitle(this.name);
+        productChanged.setProductName(this.name);
         productChanged.setProductPrice(this.price);
         productChanged.setProductStock(this.stock);
         productChanged.setImageUrl(this.imageUrl);
