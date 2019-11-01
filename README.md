@@ -1,5 +1,5 @@
 # products
-
+-----
 ```java
 package com.example.template.config.rest;
 
