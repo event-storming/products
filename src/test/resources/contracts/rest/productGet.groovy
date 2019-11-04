@@ -3,7 +3,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/item/1')
+        url ('/product/1')
         headers {
             contentType(applicationJson())
         }
