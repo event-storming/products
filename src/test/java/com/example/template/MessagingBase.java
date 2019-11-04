@@ -44,6 +44,7 @@ public abstract class MessagingBase {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
 
+        // TODO json 으로 변경
         ProductChanged productChanged = new ProductChanged();
         productChanged.setProductId(1L);
 //        productChanged.setProductTitle("TEST");
