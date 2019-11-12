@@ -19,21 +19,21 @@ public class ProductChanged extends AbstractEvent{
     private String productName;
     private int productPrice;
 
-//    private int productStock;
-//    public int getProductStock() {
-//        return productStock;
-//    }
-//    public void setProductStock(int productStock) {
-//        this.productStock = productStock;
-//    }
+    private int productStock;
+    public int getProductStock() {
+        return productStock;
+    }
+    public void setProductStock(int productStock) {
+        this.productStock = productStock;
+    }
 
-    private int stock;
-    public int getStock() {
-        return stock;
-    }
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
+//    private int stock;
+//    public int getStock() {
+//        return stock;
+//    }
+//    public void setStock(int stock) {
+//        this.stock = stock;
+//    }
 
     private String imageUrl;
 
@@ -48,8 +48,8 @@ public class ProductChanged extends AbstractEvent{
         this.setProductId(product.getId());
         this.setProductName(product.getName());
         this.setProductPrice(product.getPrice());
-//        this.setProductStock(product.getStock());
-        this.setStock(product.getStock());
+        this.setProductStock(product.getStock());
+//        this.setStock(product.getStock());
         this.setImageUrl(product.getImageUrl());
     }
 

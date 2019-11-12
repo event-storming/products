@@ -11,8 +11,13 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+//    @GetMapping("/item/{productId}")
+//    Product productStockCheck(@PathVariable(value = "productId") Long productId) {
+//        return  this.productService.getProductById(productId);
+//    }
+
     @GetMapping("/product/{productId}")
-    Product productStockCheck(@PathVariable(value = "productId") Long productId) {
+    Product productStockCheck1(@PathVariable(value = "productId") Long productId) {
         return  this.productService.getProductById(productId);
     }
 }
