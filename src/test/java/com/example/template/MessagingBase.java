@@ -41,25 +41,17 @@ public abstract class MessagingBase {
 
     public void productChanged() {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("TEST");
+        product.setPrice(10000);
+        product.setStock(10);
+        product.setImageUrl("/test.jpg");
 
-        // TODO json 으로 변경
-        ProductChanged productChanged = new ProductChanged();
-        productChanged.setProductId(1L);
-//        productChanged.setProductTitle("TEST");
-        productChanged.setProductName("TEST");
-        productChanged.setProductPrice(10000);
-        productChanged.setProductStock(10);
-        productChanged.setImageUrl("/test.jpg");
-        try {
-            json = objectMapper.writeValueAsString(productChanged);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("JSON format exception", e);
-        }
+        ProductChanged productChanged = new ProductChanged(product);
+        String json = productChanged.toJson();
 
         System.out.println("test output Topic = " + kafkaProcessor.outboundTopic().toString());
-
         this.messaging.send(MessageBuilder
                 .withPayload(json)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)

@@ -1,5 +1,4 @@
 package contracts.messaging
-//
 org.springframework.cloud.contract.spec.Contract.make {
     description("""
 spring contract 에서 메세지를 받는 방식은 총 3가지인데,

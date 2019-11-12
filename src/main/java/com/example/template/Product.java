@@ -1,13 +1,6 @@
 package com.example.template;
 
 import com.example.template.config.kafka.KafkaProcessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.beans.BeanUtils;
-import org.springframework.cloud.stream.messaging.Processor;
-import org.springframework.core.env.Environment;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
@@ -29,30 +22,11 @@ public class Product {
 
     @PostPersist @PostUpdate
     private void publishStart() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
 
-        ProductChanged productChanged = new ProductChanged();
-        productChanged.setProductId(this.id);
-//        productChanged.setProductTitle(this.name);
-        productChanged.setProductName(this.name);
-        productChanged.setProductPrice(this.price);
-        productChanged.setProductStock(this.stock);
-        productChanged.setImageUrl(this.imageUrl);
-        try {
-            json = objectMapper.writeValueAsString(productChanged);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("JSON format exception", e);
-        }
+        ProductChanged productChanged = new ProductChanged(this);
+        String json = productChanged.toJson();
 
         if( json != null ){
-            /**
-             * spring kafka 방식
-             */
-//            Environment env = Application.applicationContext.getEnvironment();
-//            String topicName = env.getProperty("eventTopic");
-//            ProducerRecord producerRecord = new ProducerRecord<>(topicName, json);
-//            kafkaTemplate.send(producerRecord);
 
             /**
              * spring streams 방식
