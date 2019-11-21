@@ -1,14 +1,20 @@
 package com.example.template;
 
 import com.example.template.config.kafka.KafkaProcessor;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.MimeTypeUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Product {
 
     @Id
@@ -20,26 +26,13 @@ public class Product {
     int stock;
     String imageUrl;
 
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
+    private List<ProductOption> productOptions = new ArrayList<ProductOption>();
+
     @PostPersist @PostUpdate
     private void publishStart() {
-
         ProductChanged productChanged = new ProductChanged(this);
-        String json = productChanged.toJson();
-
-        if( json != null ){
-
-            /**
-             * spring streams 방식
-             */
-            KafkaProcessor processor = Application.applicationContext.getBean(KafkaProcessor.class);
-            MessageChannel outputChannel = processor.outboundTopic();
-
-            outputChannel.send(MessageBuilder
-                    .withPayload(json)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
-
-        }
+        productChanged.sendMessage(productChanged.toJson());
     }
 
     public Long getId() {
@@ -80,5 +73,18 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<ProductOption> getProductOptions() {
+        return productOptions;
+    }
+
+    public void setProductOptions(List<ProductOption> productOptions) {
+        this.productOptions = productOptions;
+    }
+
+    public void addProductOptions(ProductOption productOption){
+        productOptions.add(productOption);
+        productOption.setProduct(this);
     }
 }

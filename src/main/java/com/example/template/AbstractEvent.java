@@ -8,8 +8,6 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.MimeTypeUtils;
 
-import javax.persistence.Entity;
-
 public class AbstractEvent {
 
     String eventType;
@@ -31,6 +29,10 @@ public class AbstractEvent {
         this.timestamp = timestamp;
     }
 
+    public boolean isMe(){
+        return getEventType().equals(getClass().getSimpleName());
+    }
+
     public String toJson(){
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
@@ -42,6 +44,23 @@ public class AbstractEvent {
         }
 
         return json;
+    }
+
+    public void sendMessage(String json){
+        if( json != null ){
+
+            /**
+             * spring streams 방식
+             */
+            KafkaProcessor processor = Application.applicationContext.getBean(KafkaProcessor.class);
+            MessageChannel outputChannel = processor.outboundTopic();
+
+            outputChannel.send(MessageBuilder
+                    .withPayload(json)
+                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                    .build());
+
+        }
     }
 
 }

@@ -1,30 +1,7 @@
 # products
-
-```java
-package com.example.template.config.rest;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+상품 추가시 상품 옵션은 OneToMany <-> ManyToOne 관계  
 
 
-@Configuration
-public class RestTemplateConfig {
+http POST http://localhost:8085/products name=TENT price=3000 stock=10
 
-	@Bean
-	RestTemplate restTemplate() {
-		RestTemplate restTemplate = new RestTemplate();
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setObjectMapper(new ObjectMapper());
-		restTemplate.getMessageConverters().add(converter);
-		return restTemplate;
-	}
-    
-}
-```
-
-
-상품 추가
+http POST http://localhost:8085/product < productData.json 

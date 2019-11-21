@@ -1,0 +1,15 @@
+{
+  "name": "BOTTLE",
+  "price": 100,
+  "stock": 200,
+  "productOptions": [
+    {
+      "optionName": "color",
+      "desc": "red"
+    },
+    {
+      "optionName": "size" ,
+      "desc": "small"
+    }
+  ]
+}
