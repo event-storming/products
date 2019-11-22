@@ -42,6 +42,17 @@ public class ProductService {
 
             }
 
+            /**
+             * 주문 취소시, 수량을 늘인다
+             */
+            if( orderPlaced.getEventType().equals(OrderCancelled.class.getSimpleName())){
+                Optional<Product> productOptional = productRepository.findById(orderPlaced.getProductId());
+                Product product = productOptional.get();
+                product.setStock(product.getStock() + orderPlaced.getQuantity());
+
+                productRepository.save(product);
+            }
+
         }catch (Exception e){
 
         }

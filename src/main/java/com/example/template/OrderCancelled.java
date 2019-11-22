@@ -1,15 +1,14 @@
 package com.example.template;
 
-public class OrderPlaced extends AbstractEvent {
+public class OrderCancelled extends AbstractEvent{
 
     private Long productId;
     private Long orderId;
     private String productName;
     private int quantity;
     private int price;
+    private String customerId;
     private String customerName;
-    private String customerAddr;
-
 
     public Long getProductId() {
         return productId;
@@ -51,6 +50,14 @@ public class OrderPlaced extends AbstractEvent {
         this.price = price;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     public String getCustomerName() {
         return customerName;
     }
@@ -59,11 +66,4 @@ public class OrderPlaced extends AbstractEvent {
         this.customerName = customerName;
     }
 
-    public String getCustomerAddr() {
-        return customerAddr;
-    }
-
-    public void setCustomerAddr(String customerAddr) {
-        this.customerAddr = customerAddr;
-    }
 }
