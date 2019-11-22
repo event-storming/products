@@ -13,6 +13,14 @@ spring:
   cloud:
     stream:
       kafka:
+#        bindings:
+#          event-in:
+#            consumer:
+#              enableDlq: true
+#              dlqName: JobError
+#              autoCommitOnError: true
+#              autoCommitOffset: true
+#              maxAttempts: 1
         binder:
           brokers: localhost:9092
         streams:

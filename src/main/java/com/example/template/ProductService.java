@@ -21,7 +21,6 @@ public class ProductService {
     @StreamListener(KafkaProcessor.INPUT)
     public void onOrderPlaced(@Payload String message) {
         System.out.println("##### listener : " + message);
-
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
