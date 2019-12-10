@@ -10,6 +10,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
   cloud:
     stream:
       kafka:
@@ -25,6 +26,7 @@ spring:
           brokers: localhost:9092
         streams:
           binder:
+            serdeError: sendToDlq
             configuration:
               default:
                 key:
