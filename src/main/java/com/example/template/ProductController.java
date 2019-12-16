@@ -10,7 +10,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/item/{productId}")
-    Product productStockCheck(@PathVariable(value = "productId") Long productId) {
+    Product productStockCheckItem(@PathVariable(value = "productId") Long productId) {
 
         System.out.println("productStockCheck call");
         try {
