@@ -77,6 +77,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Add Stackdriver Trace Starter -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-gcp-starter-trace</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
