@@ -79,6 +79,22 @@ steps:
                   image: gcr.io/$PROJECT_ID/$_PROJECT_NAME:$COMMIT_SHA
                   ports:
                     - containerPort: 8080
+                  readinessProbe:
+                    httpGet:
+                      path: /actuator/health
+                      port: 8080
+                    initialDelaySeconds: 10
+                    timeoutSeconds: 2
+                    periodSeconds: 5
+                    failureThreshold: 5
+                  livenessProbe:
+                    httpGet:
+                      path: /products/1
+                      port: 8080
+                    initialDelaySeconds: 40
+                    timeoutSeconds: 2
+                    periodSeconds: 5
+                    failureThreshold: 5
         EOF
 substitutions:
     _PROJECT_NAME: products

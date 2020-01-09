@@ -8,10 +8,19 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.MimeTypeUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AbstractEvent {
 
     String eventType;
     String timestamp;
+
+    public AbstractEvent(){
+        this.setEventType(this.getClass().getSimpleName());
+        SimpleDateFormat defaultSimpleDateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+        this.timestamp = defaultSimpleDateFormat.format(new Date());
+    }
 
     public String getEventType() {
         return eventType;
@@ -62,5 +71,4 @@ public class AbstractEvent {
 
         }
     }
-
 }
