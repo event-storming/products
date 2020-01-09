@@ -91,7 +91,7 @@ steps:
                     httpGet:
                       path: /products/1
                       port: 8080
-                    initialDelaySeconds: 40
+                    initialDelaySeconds: 120
                     timeoutSeconds: 2
                     periodSeconds: 5
                     failureThreshold: 5
