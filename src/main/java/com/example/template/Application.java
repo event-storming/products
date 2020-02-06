@@ -3,11 +3,13 @@ package com.example.template;
 import com.example.template.config.kafka.KafkaProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 @EnableBinding(KafkaProcessor.class)
+@EnableCircuitBreaker
 public class Application {
 
     protected static ApplicationContext applicationContext;

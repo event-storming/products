@@ -1,5 +1,6 @@
 package com.example.template;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class ProductController {
 
 
     @PatchMapping("/product/{productId}")
+    @HystrixCommand(fallbackMethod = "certifyFallBack")
     ResponseEntity<String> fakeProductPatch(@PathVariable(value = "productId") Long productId, @RequestBody String data) {
 
         count++;
@@ -59,5 +61,13 @@ public class ProductController {
         }
 
         return ResponseEntity.ok(String.format(RESPONSE_STRING_FORMAT, HOSTNAME, count));
+    }
+
+    ResponseEntity<String> certifyFallBack(Long productId, String data){
+
+        System.out.println("certifyFallBack");
+        System.out.println(data);
+
+        return ResponseEntity.ok("시스템이 혼잡합니다!! 잠시후 다시 호출해주세요");
     }
 }

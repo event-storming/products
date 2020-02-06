@@ -79,6 +79,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- hystrix circuit breaker  -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+
 		<!-- Add Stackdriver Trace Starter -->
 <!--		<dependency>-->
 <!--			<groupId>org.springframework.cloud</groupId>-->

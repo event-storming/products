@@ -86,7 +86,7 @@ steps:
                     initialDelaySeconds: 10
                     timeoutSeconds: 2
                     periodSeconds: 5
-                    failureThreshold: 5
+                    failureThreshold: 10
                   livenessProbe:
                     httpGet:
                       path: /products/1
