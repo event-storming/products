@@ -32,7 +32,7 @@ public class Product {
     @PostPersist @PostUpdate
     private void publishStart() {
         ProductChanged productChanged = new ProductChanged(this);
-        productChanged.sendMessage(productChanged.toJson());
+        productChanged.publish();
     }
 
     public Long getId() {

@@ -14,9 +14,7 @@ public class ProductChanged extends AbstractEvent{
     private String imageUrl;
 
     public ProductChanged(){
-        this.setEventType(this.getClass().getSimpleName());
-        SimpleDateFormat defaultSimpleDateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
-        this.timestamp = defaultSimpleDateFormat.format(new Date());
+        super();
     }
 
     public ProductChanged(Product product){
