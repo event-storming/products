@@ -20,10 +20,10 @@ public class ProductController {
     private int count = 0;
 
     private static final String HOSTNAME = parseContainerIdFromHostname(
-            System.getenv().getOrDefault("HOSTNAME", "deliveries"));
+            System.getenv().getOrDefault("HOSTNAME", "products"));
 
     static String parseContainerIdFromHostname(String hostname) {
-        return hostname.replaceAll("deliveries-v\\d+-", "");
+        return hostname.replaceAll("products-\\d+-", "");
     }
 
 
@@ -55,7 +55,7 @@ public class ProductController {
         logger.info(String.format("product start from %s: %d", HOSTNAME, count));
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

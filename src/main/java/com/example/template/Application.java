@@ -4,12 +4,14 @@ import com.example.template.config.kafka.KafkaProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 @EnableBinding(KafkaProcessor.class)
 @EnableCircuitBreaker
+@EnableHystrixDashboard
 public class Application {
 
     protected static ApplicationContext applicationContext;
@@ -18,7 +20,7 @@ public class Application {
 
         ProductRepository productRepository = applicationContext.getBean(ProductRepository.class);
         // 초기 상품 셋팅
-        String[] products = {"TV", "RADIO", "NOTEBOOK", "TABLE", "CLOCK"};
+        String[] products = {"TV", "MASK", "NOTEBOOK", "TABLE", "CLOCK"};
         int i = 1;
         for(String p : products){
             Product product = new Product();

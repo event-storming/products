@@ -10,7 +10,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-
   cloud:
     stream:
       kafka:
@@ -41,7 +40,11 @@ spring:
         event-out:
           destination: eventTopic
           contentType: application/json
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream, info, health
 logging:
   level:
     org.hibernate.type: trace
