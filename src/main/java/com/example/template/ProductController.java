@@ -54,11 +54,11 @@ public class ProductController {
         count++;
         logger.info(String.format("product start from %s: %d", HOSTNAME, count));
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(900);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return ResponseEntity.ok(String.format(RESPONSE_STRING_FORMAT, HOSTNAME, count));
     }
