@@ -37,7 +37,17 @@ public class ProductService {
                 Product product = productOptional.get();
                 product.setStock(product.getStock() - orderPlaced.getQuantity());
 
-                productRepository.save(product);
+                if( product.getStock() < 0 ){
+                    System.out.println("productOutOfStock 이벤트 발생");
+                    ProductOutOfStock productOutOfStock = new ProductOutOfStock();
+                    productOutOfStock.setProductId(orderPlaced.getProductId());
+                    productOutOfStock.setOrderId(orderPlaced.getOrderId());
+                    productOutOfStock.publish();
+
+                }else{
+                    productRepository.save(product);
+                }
+
 
             }
 
@@ -47,9 +57,11 @@ public class ProductService {
             if( orderPlaced.getEventType().equals(OrderCancelled.class.getSimpleName())){
                 Optional<Product> productOptional = productRepository.findById(orderPlaced.getProductId());
                 Product product = productOptional.get();
-                product.setStock(product.getStock() + orderPlaced.getQuantity());
-
-                productRepository.save(product);
+                // productOutOfStock 상황이 아닐때만 재고량을 늘린다.
+                if( product.getStock() - orderPlaced.getQuantity() > 0 ){
+                    product.setStock(product.getStock() + orderPlaced.getQuantity());
+                    productRepository.save(product);
+                }
             }
 
         }catch (Exception e){

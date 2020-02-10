@@ -1,6 +1,7 @@
 package com.example.template;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,14 @@ public class ProductController {
 
 
     @PatchMapping("/product/{productId}")
-    @HystrixCommand(fallbackMethod = "certifyFallBack")
+    @HystrixCommand(
+            fallbackMethod = "certifyFallBack",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"), // 기본 타임아웃
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"), // 서킷브레이커가 작하게될 에러 퍼센트
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "20"), // 서킷브레이커가 열리기 위한 최소 요청조 (10초간 19번이 실패해도 서킷은 오픈 안됨)
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000") } // 서킷브래이커가 열렸을때 얼마나 유지할지
+    )
     ResponseEntity<String> fakeProductPatch(@PathVariable(value = "productId") Long productId, @RequestBody String data) {
 
         count++;
