@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,6 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
-    @Autowired
-    ProductRepository productRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
     public void onOrderPlaced(@Payload String message) {
@@ -56,6 +54,9 @@ public class ProductService {
 
         }
     }
+
+    @Autowired
+    ProductRepository productRepository;
 
     /**
      * 상품 조회
