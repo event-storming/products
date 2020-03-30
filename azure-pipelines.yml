@@ -48,7 +48,7 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
-        options: '-Dmaven.test.skip=true -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+        options: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
         javaHomeOption: 'JDKVersion'
         jdkVersionOption: '1.8'
         jdkArchitectureOption: 'x64'
